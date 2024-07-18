@@ -2,36 +2,30 @@
 
 namespace controllers;
 
-class Router extends Request
+class Router
 {
     private array $routes = [];
 
-    private function AddRoute($method, $path, $controller, $action)
+    public function AddRoute(Request $request, $controller)
     {
-        $method->getMethod();
-        $path->getPath();
-        $this->routes[$method][$path] = ['controller' => $controller, 'action' => $action];
+        $path = $request->getPath();
+        $method = $request->getMethod();
+        $this->routes[$method][$path] = $controller;
     }
 
-    public function get($path, $controller, $action){
-        $this->AddRoute($this->setMethod('GET'), $path, $controller, $action);
+    public function GetRoutes(){
+        return $this->routes;
     }
 
-    public function post($path, $controller, $action){
-        $this->AddRoute($this->setMethod('POST'), $path, $controller, $action);
-    }
-
-    public function dispatch(Request $request)
+    public function getController(Request $request): ? Controller
     {
         $path = $request->getPath();
         $method = $request->getMethod();
 
-      if (array_key_exists($path, $this->routes)) {
-          $controller = $this->routes[$method][$path]['controller'];
-          $action = $this->routes[$method][$path]['action'];
+      if (array_key_exists($path, $this->routes[$method])) {
+          $controller = $this->routes[$method][$path];
 
-          $controller = new $controller();
-          $controller->$action();
+          return new Controller();
 
       } else {
             throw new \Exception('404 Not Found for URI: ' . $path);
