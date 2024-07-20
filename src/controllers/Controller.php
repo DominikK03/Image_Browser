@@ -5,7 +5,7 @@ namespace controllers;
 class Controller implements ControllerInterface
 {
 
-    public function render()
+    public function handle(Request $request): ResponseInterface
     {
 
     }
