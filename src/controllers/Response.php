@@ -30,9 +30,10 @@ class Response implements ResponseInterface
     {
     }
 
-    public function getHeader()
+    public function getHeader(string $header)
     {
-        // TODO: Implement getHeader() method.
+        return $headers[$header] ?? null;
+
     }
 
     public function setBody(string $body)

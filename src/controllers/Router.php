@@ -6,18 +6,16 @@ class Router
 {
     private array $routes = [];
 
-    public function AddRoute(Request $request, $controller)
+    public function AddRoute(string $path, string $method, $controller)
     {
-        $path = $request->getPath();
-        $method = $request->getMethod();
+        $this->path = $path;
+        $this->method = $method;
         $this->routes[$method][$path] = $controller;
     }
 
-    public function GetRoutes(){
-        return $this->routes;
-    }
 
-    public function getController(Request $request): ? Controller
+
+    public function getController(Request $request): ResponseInterface
     {
         $path = $request->getPath();
         $method = $request->getMethod();
@@ -25,8 +23,7 @@ class Router
       if (array_key_exists($path, $this->routes[$method])) {
           $controller = $this->routes[$method][$path];
 
-          return new Controller();
-
+        return $controller;
       } else {
             throw new \Exception('404 Not Found for URI: ' . $path);
         }
