@@ -3,5 +3,5 @@
 namespace controllers;
 
 interface ControllerInterface {
-    public function render();
+    public function handle(Request $request) : ResponseInterface;
 }
