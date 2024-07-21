@@ -7,36 +7,26 @@ namespace Composer\Autoload;
 class ComposerStaticInit5a1e4b9c6f190d3ad24e7babb4a97f74
 {
     public static $prefixLengthsPsr4 = array (
-        'm' => 
+        'a' => 
         array (
-            'models\\' => 7,
-        ),
-        'c' => 
-        array (
-            'controllers\\' => 12,
+            'app\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'models\\' => 
+        'app\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/models',
-        ),
-        'controllers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/controllers',
+            0 => __DIR__ . '/../..' . '/',
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'controllers\\Controller' => __DIR__ . '/../..' . '/controllers/Controller.php',
-        'controllers\\ControllerInterface' => __DIR__ . '/../..' . '/controllers/ControllerInterface.php',
-        'controllers\\HtmlResponse' => __DIR__ . '/../..' . '/controllers/HtmlResponse.php',
-        'controllers\\Request' => __DIR__ . '/../..' . '/controllers/Request.php',
-        'controllers\\ResponseInterface' => __DIR__ . '/../..' . '/controllers/ResponseInterface.php',
-        'controllers\\Router' => __DIR__ . '/../..' . '/controllers/Router.php',
-        'models\\UpdateImage' => __DIR__ . '/../..' . '/models/UpdateImage.php',
+        'app\\Response' => __DIR__ . '/../..' . '/Response.php',
+        'app\\Router' => __DIR__ . '/../..' . '/Router.php',
+        'app\\controllers\\HomeController' => __DIR__ . '/../..' . '/controllers/HomeController.php',
+        'app\\controllers\\UploadController' => __DIR__ . '/../..' . '/controllers/UploadController.php',
+        'app\\models\\UpdateImage' => __DIR__ . '/../..' . '/models/UpdateImage.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

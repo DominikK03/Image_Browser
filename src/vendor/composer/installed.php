@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'root/www',
+        'name' => '__root__',
         'pretty_version' => '1.0.0+no-version-set',
         'version' => '1.0.0.0',
         'reference' => null,
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'root/www' => array(
+        '__root__' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
             'reference' => null,
