@@ -2,36 +2,60 @@
 
 namespace app;
 
+use app\Attributes\Request;
+use app\Exceptions\RouteNotFoundException;
+use ReflectionClass;
+
+
 class Router
 {
     private array $routes = [];
 
-    public function AddRoute(string $route, string $method, callable|array $controller) : self
+    public function __construct()
     {
-        $this->routes[$method][$route] = $controller;
+    }
+
+    public function registerControllers(array $controllers)
+    {
+        foreach($controllers as $controller) {
+            $reflectionController = new \ReflectionClass($controller);
+
+            foreach($reflectionController->getMethods() as $method) {
+                $attributes = $method->getAttributes(Request::class, \ReflectionAttribute::IS_INSTANCEOF);
+
+                foreach($attributes as $attribute) {
+                    $route = $attribute->newInstance();
+
+                    $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+                }
+            }
+        }
+    }
+
+    public function register(string $requestMethod, string $route, callable|array $controller): self
+    {
+        $this->routes[$requestMethod][$route] = $controller;
+
         return $this;
     }
-    public function get(string $route,  callable|array $controller) : self
+
+
+
+    public function routes(): array
     {
-        return $this->AddRoute($route, 'GET', $controller);
+        return $this->routes;
     }
-    public function post(string $route, callable|array $controller) : self
+
+    public function resolve(string $requestUri, string $requestMethod)
     {
-        return $this->AddRoute($route, 'POST', $controller);
-    }
+        $route = explode('?', $requestUri)[0];
+        $controller = $this->routes[$requestMethod][$route] ?? null;
 
-
-    public function getController(string $requestURI, string $method)
-    {
-
-        $route = explode('?', $requestURI)[0];
-        $method = strtoupper($method);
-        $controller = $this->routes[$method][$route] ?? null;
-
-        if (! $controller){
-            throw new \Exception('Page Not Found',404);
+        if (! $controller) {
+            throw new RouteNotFoundException();
         }
-        if (is_callable($controller)){
+
+        if (is_callable($controller)) {
             return call_user_func($controller);
         }
 
@@ -46,6 +70,8 @@ class Router
         }
 
 
+        throw new RouteNotFoundException();
     }
+
 
 }

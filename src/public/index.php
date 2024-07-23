@@ -6,14 +6,23 @@ require '../functions.php';
 define('STORAGE_PATH', __DIR__.'/../storage');
 define('VIEW_PATH', __DIR__.'/../views');
 
+use app\App;
 use app\controllers\HomeController;
+use app\controllers\UploadController;
 use app\Router;
 
 
 $router = new Router();
 
-$router
-        ->get('/',[HomeController::class, 'index'])
-        ->post('/upload',[HomeController::class,'upload']);
+$router->registerControllers(
+        [
+                HomeController::class,
+                UploadController::class,
+        ]
+);
 
-echo $router->getController($_SERVER['REQUEST_URI'],$_SERVER['REQUEST_METHOD']);
+
+(new App(
+        $router,
+        ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']]
+))->run();

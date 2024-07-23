@@ -3,14 +3,18 @@
 namespace app\controllers;
 
 
+use app\Attributes\Request;
 use app\Response;
 
 class HomeController
 {
+    #[Request('/','GET')]
     public function index(): Response
     {
         return Response::make('home-view');
     }
+
+    #[Request('/upload','POST')]
     public function upload(): void
     {
 
