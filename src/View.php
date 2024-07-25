@@ -2,7 +2,7 @@
 
 namespace app;
 
-class Response
+class View
 {
 
     public function __construct(protected string $view, protected array $data = [])
