@@ -2,50 +2,72 @@
 
 namespace app;
 
+use app\Attributes\Route;
+use app\Exceptions\RouteNotFoundException;
+use app\Responses\RouteNotFoundResponse;
+use ReflectionClass;
+use app\Request;
+
+
 class Router
 {
     private array $routes = [];
 
-    public function AddRoute(string $route, string $method, callable|array $controller) : self
+    public function __construct()
     {
-        $this->routes[$method][$route] = $controller;
-        return $this;
-    }
-    public function get(string $route,  callable|array $controller) : self
-    {
-        return $this->AddRoute($route, 'GET', $controller);
-    }
-    public function post(string $route, callable|array $controller) : self
-    {
-        return $this->AddRoute($route, 'POST', $controller);
     }
 
-
-    public function getController(string $requestURI, string $method)
+    public function registerControllers(array $controllers)
     {
+        foreach($controllers as $controller) {
+            $reflectionController = new \ReflectionClass($controller);
 
-        $route = explode('?', $requestURI)[0];
-        $method = strtoupper($method);
-        $controller = $this->routes[$method][$route] ?? null;
+            foreach($reflectionController->getMethods() as $method) {
+                $attributes = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
 
-        if (! $controller){
-            throw new \Exception('Page Not Found',404);
-        }
-        if (is_callable($controller)){
-            return call_user_func($controller);
-        }
+                foreach($attributes as $attribute) {
+                    $route = $attribute->newInstance();
 
-        if (is_array($controller)){
-            [$class, $method] = $controller;
-            if (class_exists($class)){
-                $class = new $class();
-                if (method_exists($class, $method)){
-                    return call_user_func_array([$class, $method], []);
+                    $this->register($route->method, $route->routePath, $controller);
                 }
             }
         }
-
-
     }
+
+    public function register(string $requestMethod, string $route, string $controller): self
+    {
+        $this->routes[$requestMethod][$route] = $controller;
+
+        return $this;
+    }
+
+
+
+    public function routes(): array
+    {
+        return $this->routes;
+    }
+
+    public function resolve(Request $request)
+    {
+        $route = explode('?', $request->getPath())[0];
+        $controllerInfo = $this->routes[$request->getMethod()][$route] ?? null;
+
+        if (! $controllerInfo) {
+            return new RouteNotFoundResponse();
+        }
+
+        $controllerClass = $controllerInfo['controller'];
+        $controllerMethod = $controllerInfo['method'];
+
+        if (! class_exists($controllerClass) || ! method_exists($controllerClass, $controllerMethod)) {
+            return new RouteNotFoundResponse();
+        }
+
+        $controller = new $controllerClass();
+
+        return $controller->$controllerMethod($request);
+    }
+
 
 }

@@ -3,29 +3,20 @@
 namespace app\controllers;
 
 
-use app\Response;
+use app\Attributes\Route;
+use app\Enums\CodeStatus;
+use app\Enums\ContentType;
+use app\Responses\HtmlResponse;
+use app\Responses\Response;
+use app\Responses\ResponseInterface;
+use app\View;
 
 class HomeController
 {
-    public function index(): Response
+    #[Route('/','GET')]
+    public function index(): ResponseInterface
     {
-        return Response::make('home-view');
+        return new HtmlResponse( View::make('home-view')->render());
     }
-    public function upload(): void
-    {
 
-        echo '<pre>';
-        var_dump($_FILES);
-
-        var_dump(pathinfo($_FILES['image']['tmp_name']));
-        echo '</pre>';
-
-        $filePath = STORAGE_PATH . '/' . $_FILES['image']['name'];
-        move_uploaded_file($_FILES['image']['tmp_name'], $filePath);
-
-        echo '<pre>';
-        var_dump(pathinfo($filePath));
-        echo '</pre>';
-
-    }
 }
