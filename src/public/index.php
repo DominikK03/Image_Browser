@@ -11,21 +11,24 @@ use app\controllers\HomeController;
 use app\controllers\UploadController;
 use app\Request;
 use app\Router;
+use app\Service\UploadImage;
+
 
 $container = [];
 $container[Router::class] = new Router();
+$container[UploadImage::class] = new UploadImage();
 $container[HomeController::class] = new HomeController();
+$container[UploadController::class] = new UploadController();
 
-$router = new Router();
-$request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'],[],[],$_FILES);
+$request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], [],[], $_FILES);
 
-$router->registerControllers(
+$container[Router::class]->registerControllers(
         [
                 HomeController::class,
-                UploadController::class,
+                UploadController::class
         ]
 );
 
 $kernel = new Kernel($container);
-$kernel->handle($request);
-$response = $kernel->getContent();
+$response = $kernel->handle($request);
+echo $response->getContent();

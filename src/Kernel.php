@@ -2,10 +2,10 @@
 
 namespace app;
 
+use AllowDynamicProperties;
 use app\Exceptions\RouteNotFoundException;
-use app\Responses\ResponseInterface;
 
-class Kernel
+#[AllowDynamicProperties] class Kernel
 {
 
 
@@ -13,14 +13,17 @@ class Kernel
     {
     }
 
-    public function handle(Request $request) : ResponseInterface
+    public function handle(Request $request): ResponseInterface
     {
         try {
-            $controller = $this->container[Router::class]->resolve($request);
+            $routeData = $this->container[Router::class]->resolve($request);
+            $controller = $this->container[$routeData->getController()];
+            $controllerMethod = $routeData->getMethod();
+            $controller->$controllerMethod($request);
 
 
         } catch (RouteNotFoundException) {
-            return new RouteNotFoundException();
+            return new PageNotFoundResponse();
         }
     }
 }

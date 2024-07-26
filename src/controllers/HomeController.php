@@ -4,19 +4,25 @@ namespace app\controllers;
 
 
 use app\Attributes\Route;
-use app\Enums\CodeStatus;
-use app\Enums\ContentType;
-use app\Responses\HtmlResponse;
-use app\Responses\Response;
-use app\Responses\ResponseInterface;
+use app\HtmlResponse;
+use app\Request;
+use app\ResponseInterface;
+use app\Service\UploadImage;
 use app\View;
+
 
 class HomeController
 {
-    #[Route('/','GET')]
-    public function index(): ResponseInterface
+
+    public function __construct()
     {
-        return new HtmlResponse( View::make('home-view')->render());
+    }
+
+    #[Route('/','GET')]
+    public function index(Request $request): ResponseInterface
+    {
+        return new HtmlResponse(View::make('home-view')->render());
+
     }
 
 }
