@@ -4,9 +4,8 @@ namespace app;
 
 use app\Attributes\Route;
 use app\Exceptions\RouteNotFoundException;
-use app\Responses\RouteNotFoundResponse;
 use ReflectionClass;
-use app\Request;
+use ReflectionException;
 
 
 class Router
@@ -17,26 +16,32 @@ class Router
     {
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function registerControllers(array $controllers)
     {
         foreach($controllers as $controller) {
-            $reflectionController = new \ReflectionClass($controller);
+            $reflectionController = new ReflectionClass($controller);
+
 
             foreach($reflectionController->getMethods() as $method) {
                 $attributes = $method->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
 
                 foreach($attributes as $attribute) {
                     $route = $attribute->newInstance();
-
-                    $this->register($route->method, $route->routePath, $controller);
+                    $this->register($route->method, $route->routePath, $controller, $method->getName());
+                    echo '<pre>';
+                    var_dump($this);
+                    echo '</pre>';
                 }
             }
         }
     }
 
-    public function register(string $requestMethod, string $route, string $controller): self
+    public function register(string $requestMethod, string $path, string $controller, string $controllerMethod): self
     {
-        $this->routes[$requestMethod][$route] = $controller;
+        $this->routes[$requestMethod][$path] = new RouteData($controller,$controllerMethod);
 
         return $this;
     }
@@ -50,23 +55,11 @@ class Router
 
     public function resolve(Request $request)
     {
-        $route = explode('?', $request->getPath())[0];
-        $controllerInfo = $this->routes[$request->getMethod()][$route] ?? null;
 
-        if (! $controllerInfo) {
-            return new RouteNotFoundResponse();
-        }
+        $path = explode('?', $request->getPath())[0];
+        $routeData = $this->routes[$request->getMethod()][$path] ?? null;
+        return $routeData;
 
-        $controllerClass = $controllerInfo['controller'];
-        $controllerMethod = $controllerInfo['method'];
-
-        if (! class_exists($controllerClass) || ! method_exists($controllerClass, $controllerMethod)) {
-            return new RouteNotFoundResponse();
-        }
-
-        $controller = new $controllerClass();
-
-        return $controller->$controllerMethod($request);
     }
 
 

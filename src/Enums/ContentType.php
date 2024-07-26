@@ -2,11 +2,12 @@
 
 namespace app\Enums;
 
+use http\Header;
+
 enum ContentType: string
 {
-    case text = 'text/html';
-    case application = 'application/json';
-    case image = 'image/jpeg';
-
+    case text = 'Content-Type: text/html';
+    case image = 'Content-Type: image/jpeg';
+    case application = 'Content-Type: application/json';
 
 }

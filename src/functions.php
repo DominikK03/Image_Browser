@@ -5,7 +5,6 @@ function dd($value)
     var_dump($value);
     echo '</pre>';
 
-    die();
 }
 
 function urlIs(string $value)

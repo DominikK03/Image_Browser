@@ -1,17 +1,19 @@
 <?php
 
-namespace app\Responses;
+namespace app;
 
+use AllowDynamicProperties;
 use app\Enums\CodeStatus;
 use app\Enums\ContentType;
 
 class Response implements ResponseInterface
 {
-
-    public function __construct(protected ContentType $contentType, protected string $content, protected int $status = 200 )
+    public function __construct(
+            private string $content,
+            private ContentType $contentType,
+            private  int $statusCode = 200,
+    )
     {
-        $this->contentType = $contentType;
-        $this->status = 200;
     }
 
     public function getContent(): string
@@ -21,10 +23,10 @@ class Response implements ResponseInterface
 
     public function getStatusCode(): int
     {
-        return $this->status;
+        return $this->statusCode;
     }
 
-    public function getContentType(): ContentType
+    public function getContentType() : ContentType
     {
         return $this->contentType;
     }
