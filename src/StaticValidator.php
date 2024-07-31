@@ -4,40 +4,45 @@ namespace app;
 
 use app\Exceptions\DirectoryNotFoundException;
 use app\Exceptions\FileExistException;
+use app\Exceptions\FileIsntImageException;
+use app\Exceptions\ImageExistException;
+use app\Exceptions\NotProperSizeException;
 use app\Service\ImageRepository;
 
 class StaticValidator
 {
-    public static function isImage($file) : bool
+    /**
+     * @throws FileIsntImageException
+     */
+    public static function assertIsImage(string $fileType)
     {
       $allowedTypes = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
-      if (in_array($file['type'], $allowedTypes)){
-          return true;
+      if (!in_array($fileType,$allowedTypes)){
+          throw new FileIsntImageException();
       }
-      return false;
     }
 
     /**
      * @throws DirectoryNotFoundException
+     * @throws ImageExistException
      */
-    public static function alreadyExists($file) : bool
+    public static function assertAlreadyExists(string $fileName)
     {
         $imageRepository = new ImageRepository();
         $imageRepository->getImagesFromFolder(STORAGE_PATH);
-        var_dump($imageRepository);
-        if (in_array($file['name'], (array)$imageRepository))
+        if (in_array($fileName, (array)$imageRepository))
         {
-            return true;
+            throw new ImageExistException();
         }
-        return false;
     }
 
-    public static function isProperSize($file): bool
+    /**
+     * @throws NotProperSizeException
+     */
+    public static function assertIsProperSize(int $fileSize)
     {
-        if ($file['size'] < 1000000) {
-            return true;
-        } else {
-            return false;
-        }
+       if(!($fileSize < 1000000)){
+           throw new NotProperSizeException();
+       }
     }
 }

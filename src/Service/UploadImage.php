@@ -13,22 +13,20 @@ class UploadImage
     /**
      * @throws DirectoryNotFoundException
      */
-    public function upload()
+    public function upload(string $imageName, string $imageTmpName, string $imageType, int $imageSize): void
     {
-        if (isset($_POST['submit'])) {
-            $image = $_FILES['image'];
-            var_dump($image);
-            if (StaticValidator::isImage($image)) {
-                if (StaticValidator::isProperSize($image)) {
-                    if (!StaticValidator::alreadyExists($image)) {
-                        move_uploaded_file(
-                                $image['tmp_name'],
-                                STORAGE_PATH.$image['name']
-                        );
-                    }
-                }
-            }
+        try {
+            StaticValidator::assertAlreadyExists($imageName);
+            StaticValidator::assertIsImage($imageType);
+            StaticValidator::assertIsProperSize($imageSize);
+            move_uploaded_file(
+              $imageTmpName,
+              STORAGE_PATH . '/' . $imageName
+            );
+        } catch (\Exception $e){
+            echo $e->getMessage();
         }
+
     }
 
 

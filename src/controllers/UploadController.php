@@ -25,6 +25,7 @@ class UploadController
     #[Route('/upload','get')]
     public function uploadView(Request $request) : ResponseInterface
     {
+
         return new HtmlResponse(View::make('upload-view'));
     }
 
@@ -34,8 +35,13 @@ class UploadController
     #[Route('/upload/uploadimage', 'POST')]
     public function upload(Request $request) : ResponseInterface
     {
-        $this->image->upload();
-        var_dump($this->image->upload());
+        $imageName = $request->getFileParam('image','name');
+        $imageTmpName = $request->getFileParam('image','tmp_name');
+        $imageType = $request->getFileParam('image','type');
+        $imageSize = $request->getFileParam('image','size');
+
+        $this->image->upload($imageName, $imageTmpName, $imageType, $imageSize);
+
         return new HtmlResponse("Tak");
     }
 

@@ -34,4 +34,8 @@ class Request
     public function getFiles(): array{
         return $this->files;
     }
+    public function getFileParam(string $filename,string $param)
+    {
+        return $this->files[$filename][$param] ?? null;
+    }
 }

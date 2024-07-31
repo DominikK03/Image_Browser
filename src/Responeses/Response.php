@@ -10,7 +10,7 @@ class Response implements ResponseInterface
     public function __construct(
             private string $content,
             private ContentType $contentType,
-            private  int $statusCode = 200,
+            private int $statusCode = 200
     )
     {
     }
@@ -22,7 +22,7 @@ class Response implements ResponseInterface
 
     public function getStatusCode(): int
     {
-        return $this->statusCode = http_response_code($this->statusCode);
+        return $this->statusCode;
     }
 
     public function getContentType() : ContentType
