@@ -15,4 +15,5 @@ enum CodeStatus: int
     case InternalError = 500;
 
 
+    case Conflict = 409;
 }

@@ -1,10 +1,9 @@
 <?php
 
-namespace app;
+namespace app\Responeses;
 
-use AllowDynamicProperties;
-use app\Enums\CodeStatus;
 use app\Enums\ContentType;
+use app\ResponseInterface;
 
 class Response implements ResponseInterface
 {
@@ -23,7 +22,7 @@ class Response implements ResponseInterface
 
     public function getStatusCode(): int
     {
-        return $this->statusCode;
+        return $this->statusCode = http_response_code($this->statusCode);
     }
 
     public function getContentType() : ContentType

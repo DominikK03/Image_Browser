@@ -4,10 +4,9 @@ namespace app\controllers;
 
 
 use app\Attributes\Route;
-use app\HtmlResponse;
 use app\Request;
+use app\Responeses\HtmlResponse;
 use app\ResponseInterface;
-use app\Service\UploadImage;
 use app\View;
 
 
