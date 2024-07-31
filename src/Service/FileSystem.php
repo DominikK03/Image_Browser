@@ -6,19 +6,27 @@ use app\Exceptions\FileNotFoundException;
 
 class FileSystem
 {
-    private array $files;
-
-    public function getFiles(): array
+    public function readFile($filePath)
     {
-        return $this->files;
+        if(file_exists($filePath))
+        {
+            return file_get_contents($filePath);
+        } else
+        {
+          throw new FileNotFoundException();
+        }
     }
 
-
-
-    private function isJpgFile($file)
+    public function deleteFile($filePath)
     {
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        return in_array($extension, ['jpg', 'jpeg', 'png', 'gif']);
+        if(file_exists($filePath))
+        {
+            unlink($filePath);
+        } else
+        {
+            throw new FileNotFoundException();
+        }
+
     }
 
 

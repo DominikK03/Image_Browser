@@ -31,9 +31,6 @@ class Router
                 foreach($attributes as $attribute) {
                     $route = $attribute->newInstance();
                     $this->register($route->method, $route->routePath, $controller, $method->getName());
-                    echo '<pre>';
-                    var_dump($this);
-                    echo '</pre>';
                 }
             }
         }

@@ -2,18 +2,33 @@
 
 namespace app\Service;
 
+use app\Exceptions\DirectoryNotFoundException;
+use app\Responeses\HtmlResponse;
+use app\ResponseInterface;
+use app\StaticValidator;
+
+
 class UploadImage
 {
-    public function upload(){
-
-        $filePath = STORAGE_PATH . '/' . $_FILES['image']['name'];
-        move_uploaded_file($_FILES['image']['tmp_name'], $filePath);
-
-    }
-    private function isJpgFile($file)
+    /**
+     * @throws DirectoryNotFoundException
+     */
+    public function upload()
     {
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        return in_array($extension, ['jpg', 'jpeg', 'png', 'gif']);
+        if (isset($_POST['submit'])) {
+            $image = $_FILES['image'];
+            var_dump($image);
+            if (StaticValidator::isImage($image)) {
+                if (StaticValidator::isProperSize($image)) {
+                    if (!StaticValidator::alreadyExists($image)) {
+                        move_uploaded_file(
+                                $image['tmp_name'],
+                                STORAGE_PATH.$image['name']
+                        );
+                    }
+                }
+            }
+        }
     }
 
 

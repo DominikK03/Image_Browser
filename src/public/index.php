@@ -18,7 +18,7 @@ $container = [];
 $container[Router::class] = new Router();
 $container[UploadImage::class] = new UploadImage();
 $container[HomeController::class] = new HomeController();
-$container[UploadController::class] = new UploadController();
+$container[UploadController::class] = new UploadController($container[UploadImage::class]);
 
 $request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], [],[], $_FILES);
 
@@ -28,6 +28,7 @@ $container[Router::class]->registerControllers(
                 UploadController::class
         ]
 );
+
 
 $kernel = new Kernel($container);
 $response = $kernel->handle($request);
