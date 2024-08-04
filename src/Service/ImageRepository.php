@@ -2,22 +2,29 @@
 
 namespace app\Service;
 
+use AllowDynamicProperties;
 use app\Exceptions\DirectoryNotFoundException;
 use app\StaticValidator;
 
-class ImageRepository
+#[AllowDynamicProperties] class ImageRepository
 {
     private array $images;
+
+    public function __construct(string $repositoryPath)
+    {
+        $this->images = [];
+        $this->repository = $repositoryPath;
+    }
 
 
     /**
      * @throws DirectoryNotFoundException
      */
-    public function getImagesFromFolder($dirPath): array
+    public function getImagesFromFolder(): array
     {
-        if (is_dir($dirPath))
+        if (is_dir($this->repository))
         {
-            $imagesDirectory = opendir($dirPath);
+            $imagesDirectory = opendir($this->repository);
             while (($file = readdir($imagesDirectory)) !== false)
             {
                 if ($file !== '.' && $file !== '..')

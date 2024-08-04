@@ -10,15 +10,12 @@ use app\StaticValidator;
 
 class UploadImage
 {
-    /**
-     * @throws DirectoryNotFoundException
-     */
     public function upload(string $imageName, string $imageTmpName, string $imageType, int $imageSize): void
     {
         try {
-            StaticValidator::assertAlreadyExists($imageName);
             StaticValidator::assertIsImage($imageType);
             StaticValidator::assertIsProperSize($imageSize);
+            StaticValidator::assertAlreadyExists($imageName);
             move_uploaded_file(
               $imageTmpName,
               STORAGE_PATH . '/' . $imageName

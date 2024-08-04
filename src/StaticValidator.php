@@ -26,11 +26,10 @@ class StaticValidator
      * @throws DirectoryNotFoundException
      * @throws ImageExistException
      */
-    public static function assertAlreadyExists(string $fileName)
+    public static function assertAlreadyExists(string $fileName, $repository = new ImageRepository(STORAGE_PATH))
     {
-        $imageRepository = new ImageRepository();
-        $imageRepository->getImagesFromFolder(STORAGE_PATH);
-        if (in_array($fileName, (array)$imageRepository))
+        $files = $repository->getImagesFromFolder();
+        if (in_array($fileName, $files))
         {
             throw new ImageExistException();
         }

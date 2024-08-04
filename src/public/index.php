@@ -20,7 +20,7 @@ $container[UploadImage::class] = new UploadImage();
 $container[HomeController::class] = new HomeController();
 $container[UploadController::class] = new UploadController($container[UploadImage::class]);
 
-$request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], [],[], $_FILES);
+$request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $_POST, $_GET, $_FILES);
 
 $container[Router::class]->registerControllers(
         [
