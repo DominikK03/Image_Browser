@@ -4,6 +4,6 @@ namespace app\Exceptions;
 
 class ImageExistException extends \Exception
 {
-    protected $message = 'Image already exist';
+    protected $message = 'UploadImage already exist';
 
 }
