@@ -1,24 +1,26 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
-require '../functions.php';
+require '../src/vendor/autoload.php';
+require '../src/functions.php';
 
-define('STORAGE_PATH', __DIR__.'/../storage');
-define('VIEW_PATH', __DIR__.'/../views');
+define('STORAGE_PATH', '../src/storage');
+define('VIEW_PATH', '../src/views');
 
+use app\Factories\UploadFactory;
 use app\Kernel;
 use app\controllers\HomeController;
 use app\controllers\UploadController;
 use app\Request;
 use app\Router;
-use app\Service\UploadImage;
+use app\Services\UploadService;
 
 
 $container = [];
 $container[Router::class] = new Router();
-$container[UploadImage::class] = new UploadImage();
+$container[UploadFactory::class] = new UploadFactory();
+$container[UploadService::class] = new UploadService($container[UploadFactory::class]);
 $container[HomeController::class] = new HomeController();
-$container[UploadController::class] = new UploadController($container[UploadImage::class]);
+$container[UploadController::class] = new UploadController($container[UploadService::class]);
 
 $request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $_POST, $_GET, $_FILES);
 
@@ -32,4 +34,3 @@ $container[Router::class]->registerControllers(
 
 $kernel = new Kernel($container);
 $response = $kernel->handle($request);
-echo $response->getContent();

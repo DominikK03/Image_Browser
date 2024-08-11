@@ -1,12 +1,12 @@
 <?php
 
-namespace app\Service;
+namespace app\Services;
 
 use AllowDynamicProperties;
 use app\Exceptions\DirectoryNotFoundException;
 use app\StaticValidator;
 
-#[AllowDynamicProperties] class ImageRepository
+#[AllowDynamicProperties] class StorageData
 {
     private array $images;
 

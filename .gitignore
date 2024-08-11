@@ -1,2 +1,2 @@
-src/vendor
-storage
+src/vendor/
+src/storage/.

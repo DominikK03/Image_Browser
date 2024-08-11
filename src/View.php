@@ -21,6 +21,11 @@ class View
         if (!file_exists($viewPath)) {
             throw new \Exception('View file not found');
         }
+
+        foreach ($this->data as $key => $value){
+            $$key = $value;
+        }
+
         include $viewPath;
 
         return $viewPath;

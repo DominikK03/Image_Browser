@@ -7,7 +7,7 @@ use app\Exceptions\FileExistException;
 use app\Exceptions\FileIsntImageException;
 use app\Exceptions\ImageExistException;
 use app\Exceptions\NotProperSizeException;
-use app\Service\ImageRepository;
+use app\Services\StorageData;
 
 class StaticValidator
 {
@@ -26,7 +26,7 @@ class StaticValidator
      * @throws DirectoryNotFoundException
      * @throws ImageExistException
      */
-    public static function assertAlreadyExists(string $fileName, $repository = new ImageRepository(STORAGE_PATH))
+    public static function assertAlreadyExists(string $fileName, $repository = new StorageData(STORAGE_PATH))
     {
         $files = $repository->getImagesFromFolder();
         if (in_array($fileName, $files))
