@@ -3,24 +3,31 @@
 namespace app\controllers;
 
 
+use AllowDynamicProperties;
 use app\Attributes\Route;
+use app\Repositories\DisplayRepository;
 use app\Request;
 use app\Responeses\HtmlResponse;
 use app\ResponseInterface;
+use app\Services\DisplayService;
+use app\Services\StorageData;
 use app\View;
 
 
-class HomeController
+#[AllowDynamicProperties] class HomeController
 {
-
-    public function __construct()
+    public function __construct(DisplayService $displayService)
     {
+        $this->displayService = $displayService;
     }
 
     #[Route('/','GET')]
     public function index(Request $request): ResponseInterface
     {
-        return new HtmlResponse(View::make('home-view')->render());
+
+        $repo = new DisplayRepository($this->displayService);
+        ddump($repo->displayImage());
+        return new HtmlResponse(View::make('home-view'));
 
     }
 
