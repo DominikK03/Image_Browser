@@ -29,7 +29,7 @@ use app\StaticValidator;
             {
                 if ($file !== '.' && $file !== '..')
                 {
-                    $this->images[] = $file;
+                    $this->images[] = STORAGE_PATH . '/' . $file;
                 }
 
             }

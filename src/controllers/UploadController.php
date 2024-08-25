@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use AllowDynamicProperties;
 use app\Attributes\Route;
 use app\Enums\CodeStatus;
 use app\Enums\ContentType;
@@ -20,9 +21,8 @@ use app\Services\UploadService;
 use app\View;
 
 
-class UploadController
+#[AllowDynamicProperties] class UploadController
 {
-    private UploadService $image;
 
     public function __construct(UploadService $uploadImage)
     {
@@ -49,9 +49,6 @@ class UploadController
         }
     }
 
-    /**
-     * @throws DirectoryNotFoundException
-     */
     #[Route('/upload/uploadimage', 'POST')]
     public function upload(Request $request): ResponseInterface
     {
@@ -63,8 +60,8 @@ class UploadController
         );
 
         try {
-            $uploadImage = new UploadRepository();
-            $uploadImage->uploadImage(
+            $newImage = new UploadRepository();
+            $newImage->uploadImage(
                 $this->image->setImageData(
                     $imageData['imageName'],
                     $imageData['imageTmpName'],

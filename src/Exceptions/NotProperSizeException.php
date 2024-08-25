@@ -5,6 +5,6 @@ namespace app\Exceptions;
 class NotProperSizeException extends \Exception
 {
 
-    protected $message = 'UploadImage has not proper size';
+    protected $message = 'Image has not proper size';
 
 }

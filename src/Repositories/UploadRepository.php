@@ -3,7 +3,6 @@
 namespace app\Repositories;
 
 use app\Models\Image;
-use app\Models\UploadImage;
 
 class UploadRepository
 {
