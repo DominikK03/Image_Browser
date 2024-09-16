@@ -7,7 +7,7 @@ define('STORAGE_PATH', '../public/storage');
 define('VIEW_PATH', '../src/views');
 
 use app\controllers\HomeController;
-use app\controllers\ImageController;
+use app\controllers\MainPageController;
 use app\controllers\UploadController;
 use app\Factories\ImageFactory;
 use app\Kernel;
@@ -33,13 +33,13 @@ $container[UploadRepository::class] = new UploadRepository();
 $container[ImageRepository::class] = new ImageRepository($container[StorageData::class], $container[ImageFactory::class]);
 $container[ImageService::class] = new ImageService($container[ImageRepository::class]);
 $container[UploadController::class] = new UploadController($container[UploadService::class], $container[UploadRepository::class]);
-$container[ImageController::class] = new ImageController($container[ImageService::class], $container[TemplateRenderer::class], $container[UploadController::class]);
+$container[MainPageController::class] = new MainPageController($container[ImageService::class], $container[TemplateRenderer::class], $container[UploadController::class]);
 
 $request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $_POST, $_GET, $_FILES);
 
 $container[Router::class]->registerControllers(
         [
-                ImageController::class,
+                MainPageController::class,
                 UploadController::class
         ]
 );
