@@ -4,21 +4,21 @@ require '../src/vendor/autoload.php';
 require '../src/functions.php';
 
 define('STORAGE_PATH', '../public/storage');
-define('VIEW_PATH', '../src/views');
+define('VIEW_PATH', '../src/View');
 
-use app\controllers\HomeController;
-use app\controllers\MainPageController;
-use app\controllers\UploadController;
-use app\Factories\ImageFactory;
+use app\Controller\HomeController;
+use app\Controller\MainPageController;
+use app\Controller\UploadController;
+use app\Factory\ImageFactory;
 use app\Kernel;
-use app\Repositories\ImageRepository;
-use app\Repositories\UploadRepository;
+use app\Repository\ImageRepository;
+use app\Repository\UploadRepository;
 use app\Request;
 use app\Router;
-use app\Services\ImageService;
-use app\Services\ImageValidator;
-use app\Services\StorageData;
-use app\Services\UploadService;
+use app\Service\ImageService;
+use app\Service\ImageValidator;
+use app\Service\StorageData;
+use app\Service\UploadService;
 use app\TemplateRenderer;
 
 

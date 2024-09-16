@@ -2,12 +2,12 @@
 
 namespace app;
 
-use app\Exceptions\DirectoryNotFoundException;
-use app\Exceptions\FileExistException;
-use app\Exceptions\FileIsntImageException;
-use app\Exceptions\ImageExistException;
-use app\Exceptions\NotProperSizeException;
-use app\Services\StorageData;
+use app\Exception\DirectoryNotFoundException;
+use app\Exception\FileExistException;
+use app\Exception\FileIsntImageException;
+use app\Exception\ImageExistException;
+use app\Exception\NotProperSizeException;
+use app\Service\StorageData;
 
 class StaticValidator
 {

@@ -24,9 +24,9 @@ class ComposerStaticInit5a1e4b9c6f190d3ad24e7babb4a97f74
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'app\\Response' => __DIR__ . '/../..' . '/Response.php',
         'app\\Router' => __DIR__ . '/../..' . '/Router.php',
-        'app\\controllers\\HomeController' => __DIR__ . '/../..' . '/controllers/HomeController.php',
-        'app\\controllers\\UploadController' => __DIR__ . '/../..' . '/controllers/UploadController.php',
-        'app\\models\\UpdateImage' => __DIR__ . '/../..' . '/models/UpdateImage.php',
+        'app\\controllers\\HomeController' => __DIR__ . '/../..' . '/Controller/HomeController.php',
+        'app\\controllers\\UploadController' => __DIR__ . '/../..' . '/Controller/UploadController.php',
+        'app\\models\\UpdateImage' => __DIR__ . '/../..' . '/Model/UpdateImage.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
