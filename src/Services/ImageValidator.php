@@ -11,5 +11,6 @@ class ImageValidator
         StaticValidator::assertIsImage($imageType);
         StaticValidator::assertAlreadyExists($imageName);
         StaticValidator::assertIsProperSize($imageSize);
+
     }
 }

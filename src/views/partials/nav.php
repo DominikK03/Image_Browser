@@ -15,9 +15,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/upload">Upload Image</a>
-                </li>
             </ul>
         </div>
     </div>

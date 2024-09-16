@@ -3,7 +3,6 @@
 namespace app\Responeses;
 
 use app\Enums\ContentType;
-use app\ResponseInterface;
 
 class Response implements ResponseInterface
 {
