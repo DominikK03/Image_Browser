@@ -2,8 +2,8 @@
 
 namespace app;
 
-use app\Attributes\Route;
-use app\Exceptions\RouteNotFoundException;
+use app\Attribute\Route;
+use app\Exception\RouteNotFoundException;
 use ReflectionClass;
 use ReflectionException;
 

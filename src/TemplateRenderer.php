@@ -1,8 +1,8 @@
 <?php
 
 namespace app;
-use app\Responeses\HtmlResponse;
-use app\Responeses\ResponseInterface;
+use app\Response\HtmlResponse;
+use app\Response\ResponseInterface;
 
 class TemplateRenderer
 {

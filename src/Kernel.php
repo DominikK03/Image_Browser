@@ -3,9 +3,9 @@
 namespace app;
 
 use AllowDynamicProperties;
-use app\Exceptions\RouteNotFoundException;
-use app\Responeses\ErrorResponses\PageNotFoundResponse;
-use app\Responeses\ResponseInterface;
+use app\Exception\RouteNotFoundException;
+use app\Response\ErrorResponses\PageNotFoundResponse;
+use app\Response\ResponseInterface;
 
 #[AllowDynamicProperties] class Kernel
 {
