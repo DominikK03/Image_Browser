@@ -27,23 +27,6 @@ use app\View;
         $this->newImage = $newImage;
         $this->image = $uploadImage;
     }
-    public function uploadView(Request $request): ResponseInterface
-    {
-        if ($request->getQuery()) {
-            $queryKey = array_keys($request->getQuery())[0];
-            $queryParam = $request->getQueryParams("uploadStatus") ?? null;
-            $queryParam = str_replace("-", " ", $queryParam);
-            $queryParam = str_replace("failed ", "", $queryParam);
-            $query = array($queryKey => $queryParam);
-            return match ($queryParam) {
-                "file isnt image",
-                "image already exist",
-                "image hasnt proper size" => new HtmlResponse(View::make('home-view', $query))
-            };
-        } else {
-            return new HtmlResponse(View::make('home-view'));
-        }
-    }
 
 
     #[Route('/uploadimage', 'POST')]
