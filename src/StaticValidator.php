@@ -44,4 +44,5 @@ class StaticValidator
            throw new NotProperSizeException();
        }
     }
+
 }

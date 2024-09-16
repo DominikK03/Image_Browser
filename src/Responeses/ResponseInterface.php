@@ -1,8 +1,7 @@
 <?php
 
-namespace app;
+namespace app\Responeses;
 
-use app\Enums\CodeStatus;
 use app\Enums\ContentType;
 
 interface ResponseInterface

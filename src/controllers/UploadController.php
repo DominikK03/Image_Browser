@@ -4,9 +4,6 @@ namespace app\controllers;
 
 use AllowDynamicProperties;
 use app\Attributes\Route;
-use app\Enums\CodeStatus;
-use app\Enums\ContentType;
-use app\Exceptions\DirectoryNotFoundException;
 use app\Exceptions\FileIsntImageException;
 use app\Exceptions\ImageExistException;
 use app\Exceptions\NotProperSizeException;
@@ -14,9 +11,9 @@ use app\Repositories\UploadRepository;
 use app\Request;
 use app\Responeses\HtmlResponse;
 use app\Responeses\RedirectResponse;
-use app\Responeses\Response;
-use app\ResponseInterface;
-use app\Services\StorageData;
+use app\Responeses\ResponseInterface;
+use app\Services\ImageCollector;
+use app\Services\ImageService;
 use app\Services\UploadService;
 use app\View;
 
@@ -24,12 +21,12 @@ use app\View;
 #[AllowDynamicProperties] class UploadController
 {
 
-    public function __construct(UploadService $uploadImage)
+    public function __construct(UploadService $uploadImage,
+                                UploadRepository $newImage)
     {
+        $this->newImage = $newImage;
         $this->image = $uploadImage;
     }
-
-    #[Route('/upload', 'get')]
     public function uploadView(Request $request): ResponseInterface
     {
         if ($request->getQuery()) {
@@ -41,15 +38,15 @@ use app\View;
             return match ($queryParam) {
                 "file isnt image",
                 "image already exist",
-                "image hasnt proper size",
-                "succeed" => new HtmlResponse(View::make('upload-view', $query))
+                "image hasnt proper size" => new HtmlResponse(View::make('home-view', $query))
             };
         } else {
-            return new HtmlResponse(View::make('upload-view'));
+            return new HtmlResponse(View::make('home-view'));
         }
     }
 
-    #[Route('/upload/uploadimage', 'POST')]
+
+    #[Route('/uploadimage', 'POST')]
     public function upload(Request $request): ResponseInterface
     {
         $imageData = array(
@@ -60,24 +57,26 @@ use app\View;
         );
 
         try {
-            $newImage = new UploadRepository();
-            $newImage->uploadImage(
-                $this->image->setImageData(
+            $this->newImage->uploadImage(
+                $newImage = $this->image->setImageData(
                     $imageData['imageName'],
                     $imageData['imageTmpName'],
                     $imageData['imageType'],
                     $imageData['imageSize']
                 )
             );
+
+
         } catch (FileIsntImageException) {
-            return new RedirectResponse('/upload', ["uploadStatus" => "failed-file-isnt-image"]);
+            return new RedirectResponse('/', ["uploadStatus" => "failed-file-isnt-image"]);
         } catch (ImageExistException) {
-            return new RedirectResponse('/upload', ["uploadStatus" => "failed-image-already-exist"]);
+            return new RedirectResponse('/', ["uploadStatus" => "failed-image-already-exist"]);
         } catch (NotProperSizeException) {
-            return new RedirectResponse('/upload', ["uploadStatus" => "failed-image-hasnt-proper-size"]);
+            return new RedirectResponse('/', ["uploadStatus" => "failed-image-hasnt-proper-size"]);
         }
-        return new RedirectResponse("/upload", ["uploadStatus" => "succeed"]);
+        return new RedirectResponse("/", []);
 
     }
+
 
 }
