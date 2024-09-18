@@ -10,34 +10,36 @@ use app\Response\ResponseInterface;
 use app\Service\ImageService;
 use app\TemplateRenderer;
 use app\View;
+use app\View\HomeView;
+use app\View\ImageGalleryView;
+use app\View\UploaderView;
 
 #[AllowDynamicProperties] class MainPageController
 {
-    public function __construct(ImageService $service, TemplateRenderer $renderer, UploadController $uploadController)
+    public function __construct(ImageService $service, TemplateRenderer $renderer)
     {
         $this->service = $service;
         $this->renderer = $renderer;
-        $this->uploadController = $uploadController;
     }
 
     #[Route('/', 'GET')]
-    public function imageView(Request $request): ResponseInterface
+    public function homeView(Request $request): ResponseInterface
     {
-        $images = $this->service->getImageNames();
+        $homeView = new HomeView(new ImageGalleryView(['{images}'=>$this->service->getImageNames()]), new UploaderView());
         if ($request->getQuery()) {
             $queryKey = array_keys($request->getQuery())[0];
             $queryParam = $request->getQueryParams("uploadStatus") ?? null;
             $queryParam = str_replace("-", " ", $queryParam);
             $queryParam = str_replace("failed ", "", $queryParam);
             $query = array($queryKey => $queryParam);
-            $data = array_merge($query, ['images' => $images]);
             return match ($queryParam) {
                 "file isnt image",
                 "image already exist",
-                "image hasnt proper size" => $this->renderer->renderHtmlResponse('home-view', $data)
+                "image hasnt proper size"
+                => new HtmlResponse($homeView->renderWithRenderer($this->renderer))
             };
         } else {
-            return $this->renderer->renderHtmlResponse('home-view', ['images' => $images]);
+            return new HtmlResponse($homeView->renderWithRenderer($this->renderer));
         }
     }
 

@@ -1,13 +1,17 @@
 <?php
 
 namespace app;
-use app\Response\HtmlResponse;
-use app\Response\ResponseInterface;
+
 
 class TemplateRenderer
 {
-    public function renderHtmlResponse(string $template, array $data): ResponseInterface
+    public function renderHtml(string $html, array $data=[]): string
     {
-        return new HtmlResponse(View::make($template,$data));
+        $template = file_get_contents(TEMPLATE_PATH.'/'.$html);
+        foreach ($data as $key=>$value)
+        {
+           $template = str_replace($key,$value,$template);
+        }
+        return $template;
     }
 }

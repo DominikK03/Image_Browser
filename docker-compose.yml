@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./src:/var/www/src
+      - ./public:/var/www/public
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./src:/var/www/src
+      - ./public:/var/www/public
+      - ./docker/nginx:/etc/nginx/conf.d

@@ -17,18 +17,18 @@ class View
 
     public function render() : string
     {
-        $viewPath = VIEW_PATH . '/' . $this->view . '.php';
-        if (!file_exists($viewPath)) {
-            throw new \Exception('View file not found');
+        $templatePath = TEMPLATE_PATH . '/' . $this->view . '.html';
+        if (!file_exists($templatePath)) {
+            throw new \Exception('Template file not found');
         }
 
         foreach ($this->data as $key => $value){
             $$key = $value;
         }
 
-        include $viewPath;
+        include $templatePath;
 
-        return $viewPath;
+        return $templatePath;
     }
 
     public function __toString(): string

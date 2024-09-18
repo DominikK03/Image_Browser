@@ -1,12 +1,11 @@
 <?php
 
-require '../src/vendor/autoload.php';
+require '../vendor/autoload.php';
 require '../src/functions.php';
 
 define('STORAGE_PATH', '../public/storage');
-define('VIEW_PATH', '../src/View');
+define('TEMPLATE_PATH', '../Template');
 
-use app\Controller\HomeController;
 use app\Controller\MainPageController;
 use app\Controller\UploadController;
 use app\Factory\ImageFactory;
@@ -20,6 +19,9 @@ use app\Service\ImageValidator;
 use app\Service\StorageData;
 use app\Service\UploadService;
 use app\TemplateRenderer;
+use app\View\HomeView;
+use app\View\ImageGalleryView;
+use app\View\UploaderView;
 
 
 $container = [];
@@ -33,7 +35,7 @@ $container[UploadRepository::class] = new UploadRepository();
 $container[ImageRepository::class] = new ImageRepository($container[StorageData::class], $container[ImageFactory::class]);
 $container[ImageService::class] = new ImageService($container[ImageRepository::class]);
 $container[UploadController::class] = new UploadController($container[UploadService::class], $container[UploadRepository::class]);
-$container[MainPageController::class] = new MainPageController($container[ImageService::class], $container[TemplateRenderer::class], $container[UploadController::class]);
+$container[MainPageController::class] = new MainPageController($container[ImageService::class], $container[TemplateRenderer::class]);
 
 $request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $_POST, $_GET, $_FILES);
 
@@ -47,3 +49,4 @@ $container[Router::class]->registerControllers(
 
 $kernel = new Kernel($container);
 $response = $kernel->handle($request);
+echo $response->getContent();
