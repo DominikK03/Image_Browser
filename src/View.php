@@ -17,7 +17,7 @@ class View
 
     public function render() : string
     {
-        $templatePath = TEMPLATE_PATH . '/' . $this->view . '.html';
+        $templatePath = TEMPLATE_PATH . '/' . $this->view;
         if (!file_exists($templatePath)) {
             throw new \Exception('Template file not found');
         }

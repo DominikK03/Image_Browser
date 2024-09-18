@@ -9,23 +9,19 @@ use app\Exception\ImageExistException;
 use app\Exception\NotProperSizeException;
 use app\Repository\UploadRepository;
 use app\Request;
-use app\Response\HtmlResponse;
 use app\Response\RedirectResponse;
 use app\Response\ResponseInterface;
-use app\Service\ImageCollector;
-use app\Service\ImageService;
 use app\Service\UploadService;
-use app\View;
 
 
 #[AllowDynamicProperties] class UploadController
 {
 
-    public function __construct(UploadService $uploadImage,
-                                UploadRepository $newImage)
+    public function __construct(UploadService $service,
+                                UploadRepository $repository)
     {
-        $this->newImage = $newImage;
-        $this->image = $uploadImage;
+        $this->service = $service;
+        $this->repository = $repository;
     }
 
 
@@ -40,8 +36,8 @@ use app\View;
         );
 
         try {
-            $this->newImage->uploadImage(
-                $newImage = $this->image->setImageData(
+            $this->repository->uploadImage(
+                $this->service->setImageData(
                     $imageData['imageName'],
                     $imageData['imageTmpName'],
                     $imageData['imageType'],
@@ -57,7 +53,7 @@ use app\View;
         } catch (NotProperSizeException) {
             return new RedirectResponse('/', ["uploadStatus" => "failed-image-hasnt-proper-size"]);
         }
-        return new RedirectResponse("/", []);
+        return new RedirectResponse("/", ["uploadStatus" => 'succeed']);
 
     }
 

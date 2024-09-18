@@ -1,7 +1,6 @@
 <?php
 
 require '../vendor/autoload.php';
-require '../src/functions.php';
 
 define('STORAGE_PATH', '../public/storage');
 define('TEMPLATE_PATH', '../Template');
@@ -19,9 +18,6 @@ use app\Service\ImageValidator;
 use app\Service\StorageData;
 use app\Service\UploadService;
 use app\TemplateRenderer;
-use app\View\HomeView;
-use app\View\ImageGalleryView;
-use app\View\UploaderView;
 
 
 $container = [];
