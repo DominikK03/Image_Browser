@@ -29,7 +29,10 @@ use app\Repository\ImageRepository;
         $names = [];
         foreach ($this->repository->getImageObjects() as $image)
             {
-                $names[] = $image->getImageName();
+                if ($image->getImageName() != '.gitkeep'){
+                    $names[] = $image->getImageName();
+
+                }
             }
         return $names;
     }

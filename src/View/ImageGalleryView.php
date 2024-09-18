@@ -9,11 +9,11 @@ use app\TemplateRenderer;
 {
     public function __construct(array $data)
     {
-        $this->data= $data;
+        $this->data = $data;
     }
 
     public function renderWithRenderer(TemplateRenderer $renderer): string
     {
-        return $renderer->renderHtml('imageGallery.html', $this->data['{images}']);
+        return $renderer->renderImagesHtml('imageGallery.html', $this->data);
     }
 }
