@@ -3,10 +3,7 @@
 namespace app\View;
 
 use AllowDynamicProperties;
-use app\Attribute\Route;
-use app\Response\ResponseInterface;
-use app\TemplateRenderer;
-use app\View;
+use app\Utils\TemplateRenderer;
 
 #[AllowDynamicProperties] class UploaderView implements ViewInterface
 {

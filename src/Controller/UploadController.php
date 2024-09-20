@@ -4,11 +4,11 @@ namespace app\Controller;
 
 use AllowDynamicProperties;
 use app\Attribute\Route;
+use app\Core\HTTP\Request;
 use app\Exception\FileIsntImageException;
 use app\Exception\ImageExistException;
 use app\Exception\NotProperSizeException;
-use app\Repository\UploadRepository;
-use app\Request;
+use app\Repository\UploadRepositoryInterface;
 use app\Response\RedirectResponse;
 use app\Response\ResponseInterface;
 use app\Service\UploadService;
@@ -18,7 +18,7 @@ use app\Service\UploadService;
 {
 
     public function __construct(UploadService $service,
-                                UploadRepository $repository)
+                                UploadRepositoryInterface $repository)
     {
         $this->service = $service;
         $this->repository = $repository;

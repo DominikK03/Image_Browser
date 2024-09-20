@@ -7,35 +7,37 @@ define('TEMPLATE_PATH', '../Template');
 
 use app\Controller\MainPageController;
 use app\Controller\UploadController;
+use app\Core\DI\Container;
+use app\Core\HTTP\Request;
+use app\Core\HTTP\Router;
 use app\Factory\ImageFactory;
 use app\Kernel;
 use app\Repository\ImageRepository;
+use app\Repository\ImageRepositoryInterface;
 use app\Repository\UploadRepository;
-use app\Request;
-use app\Router;
+use app\Repository\UploadRepositoryInterface;
 use app\Service\ImageService;
 use app\Service\ImageValidator;
 use app\Service\StorageData;
 use app\Service\UploadService;
-use app\TemplateRenderer;
+use app\Utils\TemplateRenderer;
 
+$container = new Container();
+$container->setConfig(StorageData::class, 'repositoryPath', STORAGE_PATH);
+$container->bindInterface(ImageRepositoryInterface::class,ImageRepository::class);
+$container->bindInterface(UploadRepositoryInterface::class, UploadRepository::class);
+$container->register(
+    Router::class, ImageFactory::class,
+    ImageValidator::class, TemplateRenderer::class,
+    StorageData::class, UploadService::class,
+    UploadRepository::class, ImageRepository::class,
+    ImageService::class, UploadController::class,
+    MainPageController::class)->build();
 
-$container = [];
-$container[Router::class] = new Router();
-$container[ImageFactory::class] = new ImageFactory();
-$container[ImageValidator::class] = new ImageValidator();
-$container[TemplateRenderer::class] = new TemplateRenderer();
-$container[StorageData::class] = new StorageData(STORAGE_PATH);
-$container[UploadService::class] = new UploadService($container[ImageFactory::class], $container[ImageValidator::class]);
-$container[UploadRepository::class] = new UploadRepository();
-$container[ImageRepository::class] = new ImageRepository($container[StorageData::class], $container[ImageFactory::class]);
-$container[ImageService::class] = new ImageService($container[ImageRepository::class]);
-$container[UploadController::class] = new UploadController($container[UploadService::class], $container[UploadRepository::class]);
-$container[MainPageController::class] = new MainPageController($container[ImageService::class], $container[TemplateRenderer::class]);
 
 $request = new Request($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $_POST, $_GET, $_FILES);
 
-$container[Router::class]->registerControllers(
+$container->get(Router::class)->registerControllers(
         [
                 MainPageController::class,
                 UploadController::class

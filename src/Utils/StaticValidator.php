@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace app\Utils;
 
 use app\Exception\DirectoryNotFoundException;
 use app\Exception\FileExistException;

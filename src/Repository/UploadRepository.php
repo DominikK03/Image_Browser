@@ -4,7 +4,7 @@ namespace app\Repository;
 
 use app\Model\Image;
 
-class UploadRepository
+class UploadRepository implements UploadRepositoryInterface
 {
     public function uploadImage(Image $uploadImage)
     {

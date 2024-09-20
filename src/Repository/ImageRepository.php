@@ -9,7 +9,7 @@ use app\Model\Image;
 use app\Service\ImageService;
 use app\Service\StorageData;
 
-#[AllowDynamicProperties] class ImageRepository
+#[AllowDynamicProperties] class ImageRepository implements ImageRepositoryInterface
 {
 
     public function __construct(StorageData $storageData, ImageFactory $factory)
