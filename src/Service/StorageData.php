@@ -4,7 +4,6 @@ namespace app\Service;
 
 use AllowDynamicProperties;
 use app\Exception\DirectoryNotFoundException;
-use app\StaticValidator;
 
 #[AllowDynamicProperties] class StorageData
 {

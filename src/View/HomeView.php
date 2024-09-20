@@ -3,7 +3,7 @@
 namespace app\View;
 
 use AllowDynamicProperties;
-use app\TemplateRenderer;
+use app\Utils\TemplateRenderer;
 
 #[AllowDynamicProperties] class HomeView implements ViewInterface
 {

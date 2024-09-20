@@ -4,12 +4,11 @@ namespace app\Service;
 
 use AllowDynamicProperties;
 use app\Exception\DirectoryNotFoundException;
-use app\Model\Image;
-use app\Repository\ImageRepository;
+use app\Repository\ImageRepositoryInterface;
 
 #[AllowDynamicProperties] class ImageService
 {
-    public function __construct(ImageRepository $repository)
+    public function __construct(ImageRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

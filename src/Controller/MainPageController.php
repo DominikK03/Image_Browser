@@ -4,12 +4,11 @@ namespace app\Controller;
 
 use AllowDynamicProperties;
 use app\Attribute\Route;
-use app\Request;
+use app\Core\HTTP\Request;
 use app\Response\HtmlResponse;
 use app\Response\ResponseInterface;
 use app\Service\ImageService;
-use app\TemplateRenderer;
-use app\View;
+use app\Utils\TemplateRenderer;
 use app\View\HomeView;
 use app\View\ImageGalleryView;
 use app\View\UploaderView;
@@ -32,7 +31,7 @@ class MainPageController
             $queryParam = str_replace("-", " ", $queryParam);
             $queryParam = str_replace("failed ", "", $queryParam);
             $uploadStatus = strtoupper($queryParam);
-        }
+            }
         $galleryView = new ImageGalleryView(['{images}'=>$this->service->getImageNames()]);
         $uploaderView = new UploaderView(['uploadStatus' => $uploadStatus]);
         $homeView = new HomeView($galleryView, $uploaderView);
