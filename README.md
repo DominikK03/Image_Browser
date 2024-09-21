@@ -25,3 +25,5 @@ This web application allows users to easily upload and display images. Built wit
   - PHP Attributes
   - Custom Routing
 
+
+## Made by Dominik K****** ©
