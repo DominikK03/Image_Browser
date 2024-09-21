@@ -7,8 +7,6 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
-      - ./src:/var/www/src
-      - ./public:/var/www/public
 
   nginx:
     image: nginx:latest
@@ -17,6 +15,4 @@ services:
       - 8000:80
     volumes:
       - ./:/var/www
-      - ./src:/var/www/src
-      - ./public:/var/www/public
       - ./docker/nginx:/etc/nginx/conf.d
