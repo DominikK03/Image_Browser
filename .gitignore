@@ -1,3 +1,5 @@
 /src/functions.php
 vendor
 public/storage/
+.idea
+.DS_Store

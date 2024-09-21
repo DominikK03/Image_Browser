@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 
 define('STORAGE_PATH', '../public/storage');
-define('TEMPLATE_PATH', '../Template');
+define('TEMPLATE_PATH', '../templates');
 
 use app\Controller\MainPageController;
 use app\Controller\UploadController;
@@ -20,7 +20,7 @@ use app\Service\ImageService;
 use app\Service\ImageValidator;
 use app\Service\StorageData;
 use app\Service\UploadService;
-use app\Utils\TemplateRenderer;
+use app\Util\TemplateRenderer;
 
 $container = new Container();
 $container->setConfig(StorageData::class, 'repositoryPath', STORAGE_PATH);
