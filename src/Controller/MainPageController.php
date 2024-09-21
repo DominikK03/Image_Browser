@@ -4,9 +4,9 @@ namespace app\Controller;
 
 use AllowDynamicProperties;
 use app\Core\HTTP\Attribute\Route;
-use app\Core\HTTP\Request\HomePageRequest;
 use app\Core\HTTP\Response\HtmlResponse;
 use app\Core\HTTP\Response\ResponseInterface;
+use app\Request\HomePageRequest;
 use app\Service\ImageService;
 use app\Util\TemplateRenderer;
 use app\View\HomeView;

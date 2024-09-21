@@ -1,8 +1,9 @@
 <?php
 
-namespace app\Core\HTTP\Request;
+namespace app\Request;
 
 use AllowDynamicProperties;
+use app\Core\HTTP\Request\Request;
 
 #[AllowDynamicProperties] class UploadFileRequest extends Request
 {
