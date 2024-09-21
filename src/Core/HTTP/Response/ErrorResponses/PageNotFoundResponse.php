@@ -1,10 +1,10 @@
 <?php
 
-namespace app\Response\ErrorResponses;
+namespace app\Core\HTTP\Response\ErrorResponses;
 
-use app\Enum\CodeStatus;
-use app\Enum\ContentType;
-use app\Response\Response;
+use app\Core\HTTP\Enum\CodeStatus;
+use app\Core\HTTP\Enum\ContentType;
+use app\Core\HTTP\Response\Response;
 use app\Util\View;
 
 class PageNotFoundResponse extends Response

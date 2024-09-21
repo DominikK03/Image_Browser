@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Attribute;
+namespace app\Core\HTTP\Attribute;
 
 use Attribute;
 

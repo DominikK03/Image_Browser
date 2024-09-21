@@ -3,7 +3,7 @@
 namespace app\Core\DI;
 
 use AllowDynamicProperties;
-use app\Exception\ClassNotFoundException;
+use app\Core\DI\Exception\ClassNotFoundException;
 
 #[AllowDynamicProperties] class Container
 {

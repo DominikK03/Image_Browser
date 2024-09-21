@@ -4,11 +4,11 @@ namespace app;
 
 use AllowDynamicProperties;
 use app\Core\DI\Container;
+use app\Core\HTTP\Exception\RouteNotFoundException;
 use app\Core\HTTP\Request;
+use app\Core\HTTP\Response\ErrorResponses\PageNotFoundResponse;
+use app\Core\HTTP\Response\ResponseInterface;
 use app\Core\HTTP\Router;
-use app\Exception\RouteNotFoundException;
-use app\Response\ErrorResponses\PageNotFoundResponse;
-use app\Response\ResponseInterface;
 
 #[AllowDynamicProperties] class Kernel
 {

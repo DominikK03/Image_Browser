@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Response;
+namespace app\Core\HTTP\Response;
 
-use app\Enum\ContentType;
+use app\Core\HTTP\Enum\ContentType;
 
 class RedirectResponse extends Response
 {

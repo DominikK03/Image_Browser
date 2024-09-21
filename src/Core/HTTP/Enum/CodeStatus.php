@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Enum;
+namespace app\Core\HTTP\Enum;
 
 enum CodeStatus: int
 {
