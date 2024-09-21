@@ -1,8 +1,6 @@
 <?php
 
-namespace app\Enum;
-
-use http\Header;
+namespace app\Core\HTTP\Enum;
 
 enum ContentType: string
 {

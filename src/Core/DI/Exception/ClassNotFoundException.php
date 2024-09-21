@@ -1,8 +1,6 @@
 <?php
 
-namespace app\Exception;
-
-use Psr\Container\NotFoundExceptionInterface;
+namespace app\Core\DI\Exception;
 
 class ClassNotFoundException extends \Exception
 {

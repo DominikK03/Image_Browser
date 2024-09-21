@@ -3,10 +3,10 @@
 namespace app\Controller;
 
 use AllowDynamicProperties;
-use app\Attribute\Route;
+use app\Core\HTTP\Attribute\Route;
 use app\Core\HTTP\Request;
-use app\Response\HtmlResponse;
-use app\Response\ResponseInterface;
+use app\Core\HTTP\Response\HtmlResponse;
+use app\Core\HTTP\Response\ResponseInterface;
 use app\Service\ImageService;
 use app\Util\TemplateRenderer;
 use app\View\HomeView;

@@ -3,14 +3,14 @@
 namespace app\Controller;
 
 use AllowDynamicProperties;
-use app\Attribute\Route;
+use app\Core\HTTP\Attribute\Route;
 use app\Core\HTTP\Request;
+use app\Core\HTTP\Response\RedirectResponse;
+use app\Core\HTTP\Response\ResponseInterface;
 use app\Exception\FileIsntImageException;
 use app\Exception\ImageExistException;
 use app\Exception\NotProperSizeException;
 use app\Repository\UploadRepositoryInterface;
-use app\Response\RedirectResponse;
-use app\Response\ResponseInterface;
 use app\Service\UploadService;
 
 
