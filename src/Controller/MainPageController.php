@@ -8,7 +8,7 @@ use app\Core\HTTP\Request;
 use app\Response\HtmlResponse;
 use app\Response\ResponseInterface;
 use app\Service\ImageService;
-use app\Utils\TemplateRenderer;
+use app\Util\TemplateRenderer;
 use app\View\HomeView;
 use app\View\ImageGalleryView;
 use app\View\UploaderView;

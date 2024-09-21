@@ -2,7 +2,7 @@
 
 namespace app\Service;
 
-use app\Utils\StaticValidator;
+use app\Util\StaticValidator;
 
 class ImageValidator
 {

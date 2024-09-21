@@ -2,7 +2,7 @@
 
 namespace app\View;
 
-use app\Utils\TemplateRenderer;
+use app\Util\TemplateRenderer;
 
 interface ViewInterface
 {

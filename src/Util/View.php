@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Utils;
+namespace app\Util;
 
 class View
 {
@@ -19,7 +19,7 @@ class View
     {
         $templatePath = TEMPLATE_PATH . '/' . $this->view;
         if (!file_exists($templatePath)) {
-            throw new \Exception('Template file not found');
+            throw new \Exception('templates file not found');
         }
 
         foreach ($this->data as $key => $value){

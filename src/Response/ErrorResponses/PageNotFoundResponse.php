@@ -5,7 +5,7 @@ namespace app\Response\ErrorResponses;
 use app\Enum\CodeStatus;
 use app\Enum\ContentType;
 use app\Response\Response;
-use app\Utils\View;
+use app\Util\View;
 
 class PageNotFoundResponse extends Response
 {
