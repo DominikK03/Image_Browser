@@ -4,6 +4,7 @@ namespace app\Core\HTTP;
 
 use app\Core\HTTP\Attribute\Route;
 use app\Core\HTTP\Exception\RouteNotFoundException;
+use app\Core\HTTP\Request\Request;
 use ReflectionClass;
 use ReflectionException;
 

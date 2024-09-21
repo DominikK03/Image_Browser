@@ -4,7 +4,7 @@ namespace app\Controller;
 
 use AllowDynamicProperties;
 use app\Core\HTTP\Attribute\Route;
-use app\Core\HTTP\Request;
+use app\Core\HTTP\Request\UploadFileRequest;
 use app\Core\HTTP\Response\RedirectResponse;
 use app\Core\HTTP\Response\ResponseInterface;
 use app\Exception\FileIsntImageException;
@@ -26,22 +26,15 @@ use app\Service\UploadService;
 
 
     #[Route('/uploadimage', 'POST')]
-    public function upload(Request $request): ResponseInterface
+    public function upload(UploadFileRequest $request): ResponseInterface
     {
-        $imageData = array(
-            'imageName' => $request->getFileParam('image', 'name'),
-            'imageTmpName' => $request->getFileParam('image', 'tmp_name'),
-            'imageType' => $request->getFileParam('image', 'type'),
-            'imageSize' => $request->getFileParam('image', 'size')
-        );
-
         try {
             $this->repository->uploadImage(
                 $this->service->setImageData(
-                    $imageData['imageName'],
-                    $imageData['imageTmpName'],
-                    $imageData['imageType'],
-                    $imageData['imageSize']
+                    $request->getImageName(),
+                    $request->getImageTmpName(),
+                    $request->getImageType(),
+                    $request->getImageSize()
                 )
             );
 

@@ -4,7 +4,7 @@ namespace app\Controller;
 
 use AllowDynamicProperties;
 use app\Core\HTTP\Attribute\Route;
-use app\Core\HTTP\Request;
+use app\Core\HTTP\Request\HomePageRequest;
 use app\Core\HTTP\Response\HtmlResponse;
 use app\Core\HTTP\Response\ResponseInterface;
 use app\Service\ImageService;
@@ -23,11 +23,11 @@ class MainPageController
     }
 
     #[Route('/', 'GET')]
-    public function homeView(Request $request): ResponseInterface
+    public function homeView(HomePageRequest $request): ResponseInterface
     {
         $uploadStatus = "";
         if ($request->getQuery()) {
-            $queryParam = $request->getQueryParams("uploadStatus") ?? null;
+            $queryParam = $request->getUploadStatus();
             $queryParam = str_replace("-", " ", $queryParam);
             $queryParam = str_replace("failed ", "", $queryParam);
             $uploadStatus = strtoupper($queryParam);
