@@ -8,7 +8,7 @@ define('TEMPLATE_PATH', '../templates');
 use app\Controller\MainPageController;
 use app\Controller\UploadController;
 use app\Core\DI\Container;
-use app\Core\HTTP\Request;
+use app\Core\HTTP\Request\Request;
 use app\Core\HTTP\Router;
 use app\Factory\ImageFactory;
 use app\Kernel;
