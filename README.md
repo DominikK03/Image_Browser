@@ -1,4 +1,4 @@
-# Photo Upload and Display Web Application
+# Image Browser Web Application
 
 ## Overview
 
